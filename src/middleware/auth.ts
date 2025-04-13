@@ -3,17 +3,6 @@ import { auth } from "@/utils/auth";
 import { fromNodeHeaders } from "better-auth/node";
 import { NextFunction, Request, Response } from "express";
 
-// AWS Cognito configuration
-const cognitoConfig = {
-  region: process.env.AWS_REGION || "eu-west-1",
-  userPoolId: process.env.COGNITO_USER_POOL_ID || "",
-  appClientId: process.env.COGNITO_APP_CLIENT_ID || "",
-};
-
-// Cache for the JWKs (JSON Web Key Set)
-let jwks: any = null;
-let jwksPems: { [key: string]: string } = {};
-
 // Define Cognito User type with all the properties from the token
 export interface AuthUser {
   id: string;

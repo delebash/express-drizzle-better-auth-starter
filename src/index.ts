@@ -21,7 +21,7 @@ const port = server.port;
 app.use(helmet());
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://sukari.travel", "https://dev.sukari.travel"], // Replace with your frontend's origin
+    origin: ["http://localhost:3000"], // Replace with your frontend's origin
     methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
   })

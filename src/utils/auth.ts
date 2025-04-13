@@ -25,7 +25,7 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     },
   },
-  trustedOrigins: ["http://localhost:3000", "https://dev.sukari.travel", "https://sukari.travel"],
+  trustedOrigins: ["http://localhost:3000"],
   rateLimit: {
     window: 10, // time in seconds,
     max: 100,
