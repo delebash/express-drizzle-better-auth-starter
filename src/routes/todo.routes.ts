@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { TodoController } from "@controllers/todo.controller";
 import { verifyToken } from "@middleware/auth";
+import { validate } from "@middleware/validation";
+import { createTodoSchema, updateTodoSchema } from "@validation/todo.schema";
 
 const router = Router();
 
@@ -13,11 +15,11 @@ router.get("/", TodoController.getAllTodos);
 // Get a specific todo by ID
 router.get("/:id", TodoController.getTodoById);
 
-// Create a new todo
-router.post("/", TodoController.createTodo);
+// Create a new todo - with validation
+router.post("/", validate(createTodoSchema), TodoController.createTodo);
 
-// Update a todo
-router.put("/:id", TodoController.updateTodo);
+// Update a todo - with validation
+router.put("/:id", validate(updateTodoSchema), TodoController.updateTodo);
 
 // Delete a todo
 router.delete("/:id", TodoController.deleteTodo);

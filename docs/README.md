@@ -12,7 +12,7 @@ A modern Express.js starter template with Drizzle ORM for PostgreSQL and robust 
 - **TypeScript**: Full type safety throughout the application
 - **API Structure**: Well-organized controllers, repositories, and routes
 - **Error Handling**: Centralized error handling with custom error classes
-- **Validation**: Request validation using middleware
+- **Validation**: Request validation using Joi for robust input sanitization and validation
 - **Logging**: Structured logging for better debugging and monitoring
 - **Security**: Implementation of security best practices with Helmet
 
@@ -40,6 +40,7 @@ The repository includes a complete Todo feature implementation with:
 - **Repository**: Data access layer with CRUD operations
 - **Controller**: Request handlers for all Todo operations
 - **Routes**: RESTful API endpoints with authentication
+- **Validation**: Joi schemas for input validation and sanitization
 
 ### Todo Schema
 
@@ -181,6 +182,50 @@ better-auth automatically provides the following endpoints:
 | GET    | /api/auth/session          | Get current session information   | Not Required   |
 | POST   | /api/auth/signout          | Sign out and invalidate session   | Required       |
 
+## Input Validation with Joi
+
+This starter uses Joi for robust input validation and sanitization. Joi provides a powerful schema description language and data validator for JavaScript.
+
+### Validation Features
+
+- **Input Sanitization**: Automatically trims whitespace from strings and removes unknown fields
+- **Type Validation**: Enforces correct data types for all fields
+- **Length Constraints**: Validates minimum and maximum lengths for string fields
+- **Required Fields**: Ensures required fields are present
+- **Custom Error Messages**: Returns detailed, user-friendly validation error messages
+
+### Validation Implementation
+
+Validation is implemented through:
+
+1. **Middleware**: A validation middleware that processes requests against Joi schemas
+2. **Schema Definitions**: Centralized schema definitions in the validation directory
+3. **Route Integration**: Schemas applied to routes before controller methods are called
+
+### Example Todo Validation Schema
+
+```typescript
+// Schema for updating a todo
+export const updateTodoSchema = Joi.object({
+  title: Joi.string().trim().min(1).max(100)
+    .messages({
+      'string.empty': 'Title cannot be empty',
+      'string.min': 'Title must be at least {#limit} characters',
+      'string.max': 'Title cannot exceed {#limit} characters'
+    }),
+  description: Joi.string().trim().min(1).max(500)
+    .messages({
+      'string.empty': 'Description cannot be empty',
+      'string.min': 'Description must be at least {#limit} characters',
+      'string.max': 'Description cannot exceed {#limit} characters'
+    }),
+  completed: Joi.boolean()
+    .messages({
+      'boolean.base': 'Completed status must be a boolean'
+    })
+}).min(1); // At least one field must be provided
+```
+
 ## Best Practices
 
 This starter follows these best practices:
@@ -188,7 +233,7 @@ This starter follows these best practices:
 1. **Separation of Concerns**: Clear separation between controllers, repositories, and routes
 2. **Repository Pattern**: Data access logic is isolated in repositories
 3. **Error Handling**: Centralized error handling with custom error classes
-4. **Validation**: Request validation using middleware
+4. **Validation**: Comprehensive input validation using Joi middleware
 5. **Security**: Implementation of security best practices with Helmet
 6. **Type Safety**: Full TypeScript support throughout the application
 7. **AWS Integration**: Support for AWS services with proper configuration

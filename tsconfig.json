@@ -20,7 +20,8 @@
       "@middleware/*": ["src/middleware/*"],
       "@routes/*": ["src/routes/*"],
       "@utils/*": ["src/utils/*"],
-      "@tests/*": ["src/tests/*"]
+      "@tests/*": ["src/tests/*"],
+      "@validation/*": ["src/validation/*"]
     }
   },
   "include": ["src/**/*"],

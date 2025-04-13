@@ -61,12 +61,9 @@ export const TodoController = {
         return res.status(401).json({ message: "Unauthorized" });
       }
 
+      // Joi has already validated title and description
       const { title, description } = req.body;
-
-      if (!title || !description) {
-        return res.status(400).json({ message: "Title and description are required" });
-      }
-
+      
       const todoData: InsertTodo = {
         title,
         description,
