@@ -4,7 +4,7 @@ import { initDatabase } from "@db/config";
 import { standardLimiter } from "@middleware/rate-limit";
 import { requestLogger } from "@middleware/request-logger";
 import { errorHandler, notFoundHandler } from "@utils/error-handler";
-import { logger } from "@utils/logger"; 
+import { logger } from "@utils/logger";
 import { toNodeHandler } from "better-auth/node";
 import cors from "cors";
 import express, { Application } from "express";

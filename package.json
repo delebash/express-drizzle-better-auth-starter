@@ -9,9 +9,11 @@
     "lint": "eslint . --ext .ts",
     "typecheck": "tsc --noEmit",
     "test": "jest",
-    "generate": "drizzle-kit generate:pg",
-    "migrate": "ts-node -r tsconfig-paths/register src/db/migrate.ts",
-    "seed": "ts-node -r tsconfig-paths/register src/db/seed.ts"
+    "db:generate": "npx drizzle-kit generate",
+    "db:migrate": "npx drizzle-kit migrate",
+    "db:push": "npx drizzle-kit push",
+    "seed": "ts-node -r tsconfig-paths/register src/db/seed.ts",
+    "auth:schema": "npx @better-auth/cli@latest generate --output ./src/db/schema/auth-schema.ts --config ./src/utils/auth.ts"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
   "description": "",
   "dependencies": {
     "better-auth": "^1.2.7",
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "drizzle-orm": "^0.41.0",
     "express": "^5.1.0",

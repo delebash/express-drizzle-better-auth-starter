@@ -56,12 +56,12 @@ The Todo schema includes:
 
 | Method | Endpoint        | Description                   | Authentication |
 |--------|-----------------|-------------------------------|----------------|
-| GET    | /api/todo       | Get all todos for current user| Required       |
-| GET    | /api/todo/:id   | Get a specific todo by ID     | Required       |
-| POST   | /api/todo       | Create a new todo             | Required       |
-| PUT    | /api/todo/:id   | Update a todo                 | Required       |
-| DELETE | /api/todo/:id   | Delete a todo                 | Required       |
-| PATCH  | /api/todo/:id/toggle | Toggle completion status | Required       |
+| GET    | /api/v1/todo       | Get all todos for current user| Required       |
+| GET    | /api/v1/todo/:id   | Get a specific todo by ID     | Required       |
+| POST   | /api/v1/todo       | Create a new todo             | Required       |
+| PUT    | /api/v1/todo/:id   | Update a todo                 | Required       |
+| DELETE | /api/v1/todo/:id   | Delete a todo                 | Required       |
+| PATCH  | /api/v1/todo/:id/toggle | Toggle completion status | Required       |
 
 ## Getting Started
 
@@ -70,6 +70,7 @@ The Todo schema includes:
 - Node.js (v16+)
 - PostgreSQL
 - npm or yarn
+- AWS account (for AWS-related features)
 
 ### Installation
 
@@ -89,7 +90,7 @@ The Todo schema includes:
 3. Set up environment variables
    ```bash
    cp .env.example .env
-   # Edit .env with your database credentials and other settings
+   # Edit .env with your database credentials, AWS settings, and other configurations
    ```
 
 4. Run database migrations
@@ -108,7 +109,7 @@ The Todo schema includes:
 
 ## Authentication with better-auth
 
-This starter uses [better-auth](https://github.com/better-auth/better-auth) - a comprehensive authentication library for TypeScript applications. better-auth provides a complete authentication solution with minimal configuration.
+This starter uses [better-auth](https://github.com/better-auth/better-auth) v1.2.7 - a comprehensive authentication library for TypeScript applications. better-auth provides a complete authentication solution with minimal configuration.
 
 ### Features
 
@@ -190,6 +191,8 @@ This starter follows these best practices:
 4. **Validation**: Request validation using middleware
 5. **Security**: Implementation of security best practices with Helmet
 6. **Type Safety**: Full TypeScript support throughout the application
+7. **AWS Integration**: Support for AWS services with proper configuration
+8. **Database Migrations**: Structured approach to database schema changes with Drizzle Kit
 
 ## Contributing
 

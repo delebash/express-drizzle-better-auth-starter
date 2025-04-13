@@ -8,7 +8,6 @@ const connectionString =
   database.url ||
   `postgres://${database.user}:${database.password}@${database.host}:${database.port}/${database.name}`;
 
-// For migrations and queries
 export const migrationClient = postgres(connectionString, {
   ssl: database.ssl,
   max: 1,
