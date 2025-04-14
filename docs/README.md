@@ -2,6 +2,41 @@
 
 A modern Express.js starter template with Drizzle ORM for PostgreSQL and robust authentication.
 
+## Technologies Used
+
+This project is built with the following technologies and libraries:
+
+### Core
+
+- [Express.js](https://expressjs.com/) - Fast, unopinionated web framework for Node.js
+- [TypeScript](https://www.typescriptlang.org/) - Typed JavaScript at any scale
+
+### Database
+
+- [PostgreSQL](https://www.postgresql.org/) - Powerful, open-source relational database
+- [Drizzle ORM](https://orm.drizzle.team/) - TypeScript ORM with focus on type safety
+
+### Authentication & Security
+
+- [better-auth](https://github.com/better-auth/better-auth) - Comprehensive authentication library
+- [Helmet](https://helmetjs.github.io/) - Secure Express apps by setting HTTP headers
+- [express-rate-limit](https://github.com/express-rate-limit/express-rate-limit) - Basic rate-limiting middleware
+- [cors](https://github.com/expressjs/cors) - CORS middleware for Express
+
+### Validation & Utilities
+
+- [Joi](https://joi.dev/) - Schema description language and data validator
+- [dotenv](https://github.com/motdotla/dotenv) - Loads environment variables from .env file
+- [uuid](https://github.com/uuidjs/uuid) - Generate RFC-compliant UUIDs
+- [Winston](https://github.com/winstonjs/winston) - Multi-transport async logging library
+
+### Development Tools
+
+- [ESLint](https://eslint.org/) - Pluggable linting utility for JavaScript and TypeScript
+- [Jest](https://jestjs.io/) - JavaScript testing framework
+- [Faker](https://fakerjs.dev/) - Generate realistic test data
+- [Supertest](https://github.com/ladjs/supertest) - HTTP assertions library
+
 ## Features
 
 - **Express.js**: Fast, unopinionated, minimalist web framework for Node.js
@@ -45,6 +80,7 @@ The repository includes a complete Todo feature implementation with:
 ### Todo Schema
 
 The Todo schema includes:
+
 - `id`: UUID primary key
 - `title`: Required title with max length
 - `description`: Text description
@@ -55,14 +91,14 @@ The Todo schema includes:
 
 ### Todo API Endpoints
 
-| Method | Endpoint        | Description                   | Authentication |
-|--------|-----------------|-------------------------------|----------------|
-| GET    | /api/v1/todo       | Get all todos for current user| Required       |
-| GET    | /api/v1/todo/:id   | Get a specific todo by ID     | Required       |
-| POST   | /api/v1/todo       | Create a new todo             | Required       |
-| PUT    | /api/v1/todo/:id   | Update a todo                 | Required       |
-| DELETE | /api/v1/todo/:id   | Delete a todo                 | Required       |
-| PATCH  | /api/v1/todo/:id/toggle | Toggle completion status | Required       |
+| Method | Endpoint                | Description                    | Authentication |
+| ------ | ----------------------- | ------------------------------ | -------------- |
+| GET    | /api/v1/todo            | Get all todos for current user | Required       |
+| GET    | /api/v1/todo/:id        | Get a specific todo by ID      | Required       |
+| POST   | /api/v1/todo            | Create a new todo              | Required       |
+| PUT    | /api/v1/todo/:id        | Update a todo                  | Required       |
+| DELETE | /api/v1/todo/:id        | Delete a todo                  | Required       |
+| PATCH  | /api/v1/todo/:id/toggle | Toggle completion status       | Required       |
 
 ## Getting Started
 
@@ -76,12 +112,14 @@ The Todo schema includes:
 ### Installation
 
 1. Clone the repository
+
    ```bash
    git clone https://github.com/miclondev/express-drizzle-better-auth-starter.git
    cd express-drizzle-better-auth-starter
    ```
 
 2. Install dependencies
+
    ```bash
    npm install
    # or
@@ -89,12 +127,14 @@ The Todo schema includes:
    ```
 
 3. Set up environment variables
+
    ```bash
    cp .env.example .env
    # Edit .env with your database credentials, AWS settings, and other configurations
    ```
 
 4. Run database migrations
+
    ```bash
    npm run db:migrate
    # or
@@ -115,21 +155,25 @@ This starter uses [better-auth](https://github.com/better-auth/better-auth) v1.2
 ### Features
 
 - **Multiple Authentication Methods**:
+
   - Email and password authentication
   - Social providers (Google configured by default)
   - Anonymous authentication
 
 - **Session Management**:
+
   - Secure cookie-based sessions
   - Configurable session duration
   - Cookie cache for improved performance
 
 - **Role-Based Access Control**:
+
   - `verifyToken` middleware for session validation
   - `requireRole` middleware for specific role requirements
   - `requireAnyRole` middleware for flexible role requirements
 
 - **Security Features**:
+
   - Rate limiting to prevent brute force attacks
   - CSRF protection
   - Secure cookie settings
@@ -174,13 +218,13 @@ export const auth = betterAuth({
 
 better-auth automatically provides the following endpoints:
 
-| Method | Endpoint                   | Description                       | Authentication |
-|--------|----------------------------|-----------------------------------|----------------|
-| POST   | /api/auth/register         | Register a new user               | Not Required   |
-| POST   | /api/auth/login            | Login with email and password     | Not Required   |
-| POST   | /api/auth/providers/google | Login with Google                 | Not Required   |
-| GET    | /api/auth/session          | Get current session information   | Not Required   |
-| POST   | /api/auth/signout          | Sign out and invalidate session   | Required       |
+| Method | Endpoint                   | Description                     | Authentication |
+| ------ | -------------------------- | ------------------------------- | -------------- |
+| POST   | /api/auth/register         | Register a new user             | Not Required   |
+| POST   | /api/auth/login            | Login with email and password   | Not Required   |
+| POST   | /api/auth/providers/google | Login with Google               | Not Required   |
+| GET    | /api/auth/session          | Get current session information | Not Required   |
+| POST   | /api/auth/signout          | Sign out and invalidate session | Required       |
 
 ## Input Validation with Joi
 
@@ -207,22 +251,19 @@ Validation is implemented through:
 ```typescript
 // Schema for updating a todo
 export const updateTodoSchema = Joi.object({
-  title: Joi.string().trim().min(1).max(100)
-    .messages({
-      'string.empty': 'Title cannot be empty',
-      'string.min': 'Title must be at least {#limit} characters',
-      'string.max': 'Title cannot exceed {#limit} characters'
-    }),
-  description: Joi.string().trim().min(1).max(500)
-    .messages({
-      'string.empty': 'Description cannot be empty',
-      'string.min': 'Description must be at least {#limit} characters',
-      'string.max': 'Description cannot exceed {#limit} characters'
-    }),
-  completed: Joi.boolean()
-    .messages({
-      'boolean.base': 'Completed status must be a boolean'
-    })
+  title: Joi.string().trim().min(1).max(100).messages({
+    "string.empty": "Title cannot be empty",
+    "string.min": "Title must be at least {#limit} characters",
+    "string.max": "Title cannot exceed {#limit} characters",
+  }),
+  description: Joi.string().trim().min(1).max(500).messages({
+    "string.empty": "Description cannot be empty",
+    "string.min": "Description must be at least {#limit} characters",
+    "string.max": "Description cannot exceed {#limit} characters",
+  }),
+  completed: Joi.boolean().messages({
+    "boolean.base": "Completed status must be a boolean",
+  }),
 }).min(1); // At least one field must be provided
 ```
 
