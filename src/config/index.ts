@@ -19,6 +19,13 @@ const configSchema = Joi.object({
   DB_HOST: Joi.string().default("localhost"),
   DB_PORT: Joi.number().default(5432),
   DATABASE_URL: Joi.string().optional(),
+  
+  // Connection Pool
+  DB_POOL_MIN: Joi.number().default(2),
+  DB_POOL_MAX: Joi.number().default(10),
+  DB_IDLE_TIMEOUT: Joi.number().default(30),
+  DB_CONNECT_TIMEOUT: Joi.number().default(10),
+  DB_MAX_LIFETIME: Joi.number().default(60 * 60),
 
   // JWT
   JWT_SECRET: Joi.string().when("NODE_ENV", {
@@ -52,6 +59,13 @@ const mapEnvToConfig = (env: NodeJS.ProcessEnv) => ({
     port: parseInt(env.DB_PORT || "5432", 10),
     url: env.DATABASE_URL,
     ssl: env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+    pool: {
+      min: parseInt(env.DB_POOL_MIN || "2", 10),
+      max: parseInt(env.DB_POOL_MAX || "10", 10),
+      idleTimeout: parseInt(env.DB_IDLE_TIMEOUT || "30", 10),
+      connectTimeout: parseInt(env.DB_CONNECT_TIMEOUT || "10", 10),
+      maxLifetime: parseInt(env.DB_MAX_LIFETIME || "3600", 10),
+    },
   },
   jwt: {
     secret: env.JWT_SECRET || "dev-secret",
