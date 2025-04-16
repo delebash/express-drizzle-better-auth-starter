@@ -22,6 +22,10 @@ export interface AuthUser {
 // Define interface to extend Express Request
 export interface AuthenticatedRequest extends Request {
   user?: AuthUser;
+  session?: {
+    id: string;
+    token: string;
+  };
 }
 
 // Middleware to verify JWT tokens

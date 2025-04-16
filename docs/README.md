@@ -67,6 +67,8 @@ This project is built with the following technologies and libraries:
 └── ...
 ```
 
+For a detailed explanation of the project architecture and how components work together, see [STRUCTURE.md](./STRUCTURE.md).
+
 ## Todo Feature
 
 The repository includes a complete Todo feature implementation with:
