@@ -1,5 +1,6 @@
-import { Request, Response, NextFunction } from "express";
 import Joi from "joi";
+import pkg from 'express';
+const { Request, Response, NextFunction } = pkg;
 
 export const validate = (schema: Joi.ObjectSchema) => {
   return (req: Request, res: Response, next: NextFunction) => {

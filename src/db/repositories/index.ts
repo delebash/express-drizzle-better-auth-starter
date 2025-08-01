@@ -1,4 +1,4 @@
-import { TodoRepository } from "./todo.repository";
+import { TodoRepository } from "./todo.repository.ts";
 
 export const todoRepository = new TodoRepository();
 

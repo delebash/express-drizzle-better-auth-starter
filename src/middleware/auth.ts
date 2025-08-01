@@ -1,7 +1,8 @@
 // src/middleware/cognitoAuth.ts
 import { auth } from "../utils/auth.ts";
 import { fromNodeHeaders } from "better-auth/node";
-import { NextFunction, Request, Response } from "express";
+import pkg from 'express';
+const { NextFunction,Request, Response } = pkg;
 
 // Define Cognito User type with all the properties from the token
 export interface AuthUser {

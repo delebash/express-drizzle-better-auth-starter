@@ -2,7 +2,7 @@ import { sqliteTable as table } from "drizzle-orm/sqlite-core";
 import * as t from "drizzle-orm/sqlite-core";
 import {timestamps} from "../../utils/columns.ts";
 
-const todos = table("todos", {
+export const todos = table("todos", {
     id: t.integer('id').primaryKey({ autoIncrement: true }),
   title: t.text("title", { length: 255 }).notNull(),
   description: t.text("description").notNull(),

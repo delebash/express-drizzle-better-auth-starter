@@ -8,15 +8,16 @@ import * as schema from "../db/schema/schema.ts";
 
 // Connection
 const client = createClient({url: database.url});
+// console.log(database.url)
 // Create database instance
 export const db = drizzle(client, {schema});
 
 export const initDatabase = async (): Promise<void> => {
   try {
     // Test the connection
-      const result = await db.execute('select 1');
+    //   const result = await db.execute('select 1');
     // Log connection pool information
-    logger.info("Database connection pool established successfully", {
+    logger.info("Database connection established successfully", {
     });
     
     // Setup periodic health check for the connection pool

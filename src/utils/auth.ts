@@ -1,10 +1,11 @@
 import {db} from "../db/config.ts";
 import * as schema from "../db/schema/schema.ts";
-import {APIError, betterAuth} from "better-auth";
+import {betterAuth} from "better-auth";
 import {drizzleAdapter} from "better-auth/adapters/drizzle";
 import {admin, organization} from "better-auth/plugins";
 // import {createAuthMiddleware} from "better-auth/api";
 import sendEmail from "../email/sendEmail.ts";
+
 
 // @ts-ignore
 export const auth = betterAuth({
@@ -50,7 +51,7 @@ export const auth = betterAuth({
             beforeDelete: async (user, request) => {
                 // Perform any cleanup or additional checks here
                 if (user.email.includes("admin")) {
-                    throw new APIError("BAD_REQUEST", {
+                    throw new Error("BAD_REQUEST", {
                         message: "Admin accounts can't be deleted",
                     });
                 }

@@ -1,5 +1,5 @@
-import { db } from "../config";
-import { todos, Todo, InsertTodo, UpdateTodo } from "../schema/todo.schema";
+import { db } from "../config.ts";
+import { todos, type Todo, type InsertTodo, type UpdateTodo } from "../schema/todo.schema.ts";
 import { eq, desc } from "drizzle-orm";
 
 export class TodoRepository {

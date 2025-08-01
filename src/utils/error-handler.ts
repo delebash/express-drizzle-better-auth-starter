@@ -1,5 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
 import { logger } from './logger.ts';
+import pkg from 'express';
+const { Request, Response, NextFunction } = pkg;
 
 export interface AppError extends Error {
   statusCode?: number;

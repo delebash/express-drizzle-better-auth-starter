@@ -1,8 +1,9 @@
-import { Request, Response } from "express";
-import { todoRepository } from "@db/repositories";
-import { InsertTodo, UpdateTodo } from "@db/schema/todo.schema";
-import { AuthenticatedRequest } from "@/middleware/auth";
 
+import { todoRepository } from "../db/repositories/index.ts";
+import type { InsertTodo, UpdateTodo } from "../db/schema/todo.schema.ts";
+import type { AuthenticatedRequest } from "../middleware/auth.ts";
+import pkg from 'express';
+const { Request, Response } = pkg;
 export const TodoController = {
   /**
    * Get all todos for the authenticated user

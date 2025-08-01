@@ -13,19 +13,22 @@
     "allowImportingTsExtensions": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
-//    "paths": {
-//      "@/*": ["src/*"],
-//      "@db/*": ["src/db/*"],
-//      "@config/*": ["src/config/*"],
-//      "@controllers/*": ["src/controllers/*"],
-//      "@middleware/*": ["src/middleware/*"],
-//      "@routes/*": ["src/routes/*"],
-//      "@utils/*": ["src/utils/*"],
-//      "@tests/*": ["src/tests/*"],
-//      "@validation/*": ["src/validation/*"]
-//    }
+    "paths": {
+      "@/*": ["src/*"],
+      "@db/*": ["src/db/*"],
+      "@config/*": ["src/config/*"],
+      "@controllers/*": ["src/controllers/*"],
+      "@middleware/*": ["src/middleware/*"],
+      "@routes/*": ["src/routes/*"],
+      "@utils/*": ["src/utils/*"],
+      "@tests/*": ["src/tests/*"],
+      "@validation/*": ["src/validation/*"]
+    }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts"],
+  "include": [
+    "src/**/*",
+    "node_modules/@types/node/globals.d.ts",
+  ],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
   
 }
