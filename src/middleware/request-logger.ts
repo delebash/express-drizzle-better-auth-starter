@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import { logger } from '@utils/logger';
+import { logger } from '../utils/logger.ts';
 
 // Add request ID and log request details
 export const requestLogger = (req: Request, res: Response, next: NextFunction): void => {

@@ -1,5 +1,5 @@
 // src/middleware/cognitoAuth.ts
-import { auth } from "@/utils/auth";
+import { auth } from "../utils/auth.ts";
 import { fromNodeHeaders } from "better-auth/node";
 import { NextFunction, Request, Response } from "express";
 

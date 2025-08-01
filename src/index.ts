@@ -1,18 +1,17 @@
-import { server } from "@/config";
-import routes from "@/routes";
-import { initDatabase } from "@db/config";
-import { standardLimiter } from "@middleware/rate-limit";
-import { requestLogger } from "@middleware/request-logger";
-import { errorHandler, notFoundHandler } from "@utils/error-handler";
-import { logger } from "@utils/logger";
+import { server } from "./config/index.ts";
+import routes from "./routes/index.ts";
+import { initDatabase } from "./db/config.ts";
+import { standardLimiter } from "./middleware/rate-limit.ts";
+import { requestLogger } from "./middleware/request-logger.ts";
+import { errorHandler, notFoundHandler } from "./utils/error-handler.ts";
+import { logger } from "./utils/logger.ts";
 import { toNodeHandler } from "better-auth/node";
 import cors from "cors";
 import express, { Application } from "express";
 import helmet from "helmet";
-import { auth } from "./utils/auth";
+import { auth } from "./utils/auth.ts";
 
 // Config is already loaded in @/config
-
 // Express application
 const app: Application = express();
 const port = server.port;

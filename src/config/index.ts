@@ -1,8 +1,5 @@
-import dotenv from "dotenv";
+import 'dotenv/config';
 import Joi from "joi";
-
-// Load environment variables from .env file
-dotenv.config();
 
 // Define the schema for environment variables
 const configSchema = Joi.object({
@@ -13,19 +10,7 @@ const configSchema = Joi.object({
   PORT: Joi.number().default(3000),
 
   // Database
-  DB_NAME: Joi.string().default("todos"),
-  DB_USER: Joi.string().default("postgres"),
-  DB_PASSWORD: Joi.string().default("postgres"),
-  DB_HOST: Joi.string().default("localhost"),
-  DB_PORT: Joi.number().default(5432),
-  DATABASE_URL: Joi.string().optional(),
-  
-  // Connection Pool
-  DB_POOL_MIN: Joi.number().default(2),
-  DB_POOL_MAX: Joi.number().default(10),
-  DB_IDLE_TIMEOUT: Joi.number().default(30),
-  DB_CONNECT_TIMEOUT: Joi.number().default(10),
-  DB_MAX_LIFETIME: Joi.number().default(60 * 60),
+  DATABASE_URL: Joi.string().default("file:./database/local.db"),
 
   // JWT
   JWT_SECRET: Joi.string().when("NODE_ENV", {
@@ -33,11 +18,6 @@ const configSchema = Joi.object({
     otherwise: Joi.string().default("dev-secret"),
   }),
   JWT_EXPIRES_IN: Joi.string().default("1d"),
-
-  // AWS
-  AWS_REGION: Joi.string().default("us-east-1"),
-  AWS_ACCESS_KEY_ID: Joi.string().optional(),
-  AWS_SECRET_ACCESS_KEY: Joi.string().optional(),
 
   // Logging
   LOG_LEVEL: Joi.string()
@@ -48,36 +28,19 @@ const configSchema = Joi.object({
 // Map environment variables to config object
 const mapEnvToConfig = (env: NodeJS.ProcessEnv) => ({
   server: {
-    env: env.NODE_ENV || "development",
-    port: parseInt(env.PORT || "3000", 10),
+    env: process.env.NODE_ENV || "development",
+    port: parseInt(process.env.PORT || "3000", 10),
   },
   database: {
-    name: env.DB_NAME || "todos",
-    user: env.DB_USER || "postgres",
-    password: env.DB_PASSWORD || "postgres",
-    host: env.DB_HOST || "localhost",
-    port: parseInt(env.DB_PORT || "5432", 10),
-    url: env.DATABASE_URL,
-    ssl: env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
-    pool: {
-      min: parseInt(env.DB_POOL_MIN || "2", 10),
-      max: parseInt(env.DB_POOL_MAX || "10", 10),
-      idleTimeout: parseInt(env.DB_IDLE_TIMEOUT || "30", 10),
-      connectTimeout: parseInt(env.DB_CONNECT_TIMEOUT || "10", 10),
-      maxLifetime: parseInt(env.DB_MAX_LIFETIME || "3600", 10),
-    },
+    url: process.env.DATABASE_URL,
+    ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
   },
   jwt: {
-    secret: env.JWT_SECRET || "dev-secret",
-    expiresIn: env.JWT_EXPIRES_IN || "1d",
-  },
-  aws: {
-    region: env.AWS_REGION || "us-east-1",
-    accessKeyId: env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+    secret: process.env.JWT_SECRET || "4d2dd6d298e7cc36cfc0056d9448a6322a90c790a93482467694f1f88e574ec874c7d8fc1017b210e5b62cf37dfcd36960980c4d0b8619fda7abd1106aa5a4eg",
+    expiresIn: process.env.JWT_EXPIRES_IN || "1d",
   },
   logging: {
-    level: env.LOG_LEVEL || "info",
+    level: process.env.LOG_LEVEL || "info",
   },
 });
 
@@ -102,7 +65,7 @@ const buildConfig = () => {
 export const config = buildConfig();
 
 // Export individual configs for convenience
-export const { server, database, jwt, aws, logging } = config;
+export const { server, database, jwt, logging } = config;
 
 // Export the schema and functions for testing
 export { buildConfig, configSchema, mapEnvToConfig };
