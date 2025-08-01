@@ -32,7 +32,7 @@ const mapEnvToConfig = (env: NodeJS.ProcessEnv) => ({
     port: parseInt(process.env.PORT || "3000", 10),
   },
   database: {
-    url: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URL || "file:./database/local.db",
     ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
   },
   jwt: {

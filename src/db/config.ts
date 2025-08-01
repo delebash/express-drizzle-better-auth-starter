@@ -4,15 +4,10 @@ import { logger } from "../utils/logger.ts";
 import {drizzle} from 'drizzle-orm/libsql';
 import * as process from "node:process";
 import {createClient} from "@libsql/client";
-import {link} from "joi";
+import * as schema from "../db/schema/schema.ts";
 
-// Connection string
-export const serverConfig = {
-    SERVER_PORT: process.env.SERVER_PORT || 3000,
-    DATABASE_URL: process.env.DATABASE_URL  || "file:./database/local.db"
-};
-
-const client = createClient({url: serverConfig.DATABASE_URL});
+// Connection
+const client = createClient({url: database.url});
 // Create database instance
 export const db = drizzle(client, {schema});
 

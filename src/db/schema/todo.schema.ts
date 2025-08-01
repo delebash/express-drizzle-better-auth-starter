@@ -1,14 +1,16 @@
-import { boolean, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
-import { uuid } from "./utils";
+import { sqliteTable as table } from "drizzle-orm/sqlite-core";
+import * as t from "drizzle-orm/sqlite-core";
+import {timestamps} from "../../utils/columns.ts";
 
-export const todos = pgTable("todos", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  title: varchar("title", { length: 255 }).notNull(),
-  description: text("description").notNull(),
-  completed: boolean("completed").default(false),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-  userId: uuid("user_id").notNull(),
+const todos = table("todos", {
+    id: t.integer('id').primaryKey({ autoIncrement: true }),
+  title: t.text("title", { length: 255 }).notNull(),
+  description: t.text("description").notNull(),
+
+    completed: t.integer("completed", { mode: "boolean" }).default(true),
+    ...timestamps,
+    // userId: t.int("user_id").references(() => danusers.id),
+
 });
 
 export type Todo = typeof todos.$inferSelect;

@@ -1,5 +1,5 @@
 import {db} from "../db/config.ts";
-import * as schema from "../db/schema/index";
+import * as schema from "../db/schema/schema.ts";
 import {APIError, betterAuth} from "better-auth";
 import {drizzleAdapter} from "better-auth/adapters/drizzle";
 import {admin, organization} from "better-auth/plugins";

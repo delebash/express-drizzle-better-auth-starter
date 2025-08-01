@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-
+import 'dotenv/config';
 // Pull in Environments variables
 const EMAIL = {
   authUser: process.env.AUTH_EMAIL_USERNAME,

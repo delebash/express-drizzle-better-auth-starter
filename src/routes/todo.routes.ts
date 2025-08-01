@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { TodoController } from "@controllers/todo.controller";
-import { verifyToken } from "@middleware/auth";
-import { validate } from "@middleware/validation";
-import { createTodoSchema, updateTodoSchema } from "@validation/todo.schema";
+import { TodoController } from "../controllers/todo.controller.ts";
+import { verifyToken } from "../middleware/auth.ts";
+import { validate } from "../middleware/validation.ts";
+import { createTodoSchema, updateTodoSchema } from "../validation/todo.schema.ts";
 
 const router = Router();
 
