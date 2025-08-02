@@ -8,7 +8,7 @@ const mockAuthMiddleware = jest.fn((req, res, next) => {
 });
 
 // Mock the auth middleware
-jest.mock('@middleware/auth.js', () => ({
+jest.mock('@middleware/authenticated.js', () => ({
   verifyToken: mockAuthMiddleware
 }));
 

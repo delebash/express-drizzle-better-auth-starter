@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { TodoController } from "../controllers/todo.controller.js";
-import { verifyToken } from "../middleware/auth.js";
+import { verifyToken } from "../middleware/authenticated.js";
 import { validate } from "../middleware/validation.js";
 import { createTodoSchema, updateTodoSchema } from "../validation/todo.schema.js";
 

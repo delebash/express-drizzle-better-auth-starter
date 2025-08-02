@@ -1,4 +1,4 @@
-import { requireRole, verifyToken } from "../middleware/auth.js";
+import { requireRole, verifyToken } from "../middleware/authenticated.js";
 import { Router } from "express";
 import todoRoutes from "./todo.routes.js";
 import authRoutes from "./auth.routes.js";

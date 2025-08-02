@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { UserController } from '../controllers/user.controller.js';
-import { verifyToken } from '../middleware/auth.js';
+import { verifyToken } from '../middleware/authenticated.js';
 
 const router = Router();
 const userController = new UserController();

@@ -2,7 +2,7 @@
 import {auth} from "../utils/auth.js";
 import {fromNodeHeaders} from "better-auth/node";
 
-// Middleware to verify JWT tokens
+// Middleware to verify session
 export const verifyToken = async (req, res, next) => {
     try {
         const session = await auth.api.getSession({
@@ -56,3 +56,11 @@ export const requireAnyRole = (requiredRoles) => {
         next();
     };
 };
+
+export const currentSession = async (req, res, next) => {
+    const session = await auth.api.getSession({
+        headers: fromNodeHeaders(req.headers),
+    });
+    res.locals.session = session
+    return next()
+}
