@@ -15,7 +15,7 @@ const doc = {
 }
 
 const outputFile = './api-swagger.json'
-const routes = ['./src/routes/index.ts']
+const routes = ['./src/routes/index.js']
 
 // swaggerAutogen(outputFile, routes, doc) //swagger 2.0 specs  old
 

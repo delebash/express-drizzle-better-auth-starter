@@ -1,115 +1,642 @@
 {
   "info": {
-    "name": "index.ts",
+    "name": "index.js",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "/",
+      "name": "api",
       "item": [
         {
-          "name": "GET /",
+          "name": "ACL /api/auth/{*any}",
           "request": {
-            "method": "GET",
+            "method": "ACL",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": []
-            }
-          }
-        },
-        {
-          "name": "POST /",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": []
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": ":id",
-      "item": [
-        {
-          "name": "GET /:id",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/:id",
+              "raw": "{{baseUrl}}/api/auth/{*any}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                ":id"
+                "api",
+                "auth",
+                "{*any}"
               ]
             }
           }
         },
         {
-          "name": "PUT /:id",
+          "name": "BIND /api/auth/{*any}",
           "request": {
-            "method": "PUT",
+            "method": "BIND",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/:id",
+              "raw": "{{baseUrl}}/api/auth/{*any}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                ":id"
+                "api",
+                "auth",
+                "{*any}"
               ]
             }
           }
         },
         {
-          "name": "DELETE /:id",
+          "name": "CHECKOUT /api/auth/{*any}",
+          "request": {
+            "method": "CHECKOUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "CONNECT /api/auth/{*any}",
+          "request": {
+            "method": "CONNECT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "COPY /api/auth/{*any}",
+          "request": {
+            "method": "COPY",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE /api/auth/{*any}",
           "request": {
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/:id",
+              "raw": "{{baseUrl}}/api/auth/{*any}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                ":id"
+                "api",
+                "auth",
+                "{*any}"
               ]
             }
           }
         },
         {
-          "name": "PATCH /:id/toggle",
+          "name": "GET /api/auth/{*any}",
           "request": {
-            "method": "PATCH",
+            "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/:id/toggle",
+              "raw": "{{baseUrl}}/api/auth/{*any}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                ":id",
-                "toggle"
+                "api",
+                "auth",
+                "{*any}"
               ]
             }
           }
-        }
-      ]
-    },
-    {
-      "name": "api",
-      "item": [
+        },
+        {
+          "name": "HEAD /api/auth/{*any}",
+          "request": {
+            "method": "HEAD",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "LINK /api/auth/{*any}",
+          "request": {
+            "method": "LINK",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "LOCK /api/auth/{*any}",
+          "request": {
+            "method": "LOCK",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "M-SEARCH /api/auth/{*any}",
+          "request": {
+            "method": "M-SEARCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "MERGE /api/auth/{*any}",
+          "request": {
+            "method": "MERGE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "MKACTIVITY /api/auth/{*any}",
+          "request": {
+            "method": "MKACTIVITY",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "MKCALENDAR /api/auth/{*any}",
+          "request": {
+            "method": "MKCALENDAR",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "MKCOL /api/auth/{*any}",
+          "request": {
+            "method": "MKCOL",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "MOVE /api/auth/{*any}",
+          "request": {
+            "method": "MOVE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "NOTIFY /api/auth/{*any}",
+          "request": {
+            "method": "NOTIFY",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "OPTIONS /api/auth/{*any}",
+          "request": {
+            "method": "OPTIONS",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PATCH /api/auth/{*any}",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/auth/{*any}",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PROPFIND /api/auth/{*any}",
+          "request": {
+            "method": "PROPFIND",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PROPPATCH /api/auth/{*any}",
+          "request": {
+            "method": "PROPPATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PURGE /api/auth/{*any}",
+          "request": {
+            "method": "PURGE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT /api/auth/{*any}",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "QUERY /api/auth/{*any}",
+          "request": {
+            "method": "QUERY",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "REBIND /api/auth/{*any}",
+          "request": {
+            "method": "REBIND",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "REPORT /api/auth/{*any}",
+          "request": {
+            "method": "REPORT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "SEARCH /api/auth/{*any}",
+          "request": {
+            "method": "SEARCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "SOURCE /api/auth/{*any}",
+          "request": {
+            "method": "SOURCE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "SUBSCRIBE /api/auth/{*any}",
+          "request": {
+            "method": "SUBSCRIBE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "TRACE /api/auth/{*any}",
+          "request": {
+            "method": "TRACE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "UNBIND /api/auth/{*any}",
+          "request": {
+            "method": "UNBIND",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "UNLINK /api/auth/{*any}",
+          "request": {
+            "method": "UNLINK",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "UNLOCK /api/auth/{*any}",
+          "request": {
+            "method": "UNLOCK",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "UNSUBSCRIBE /api/auth/{*any}",
+          "request": {
+            "method": "UNSUBSCRIBE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/{*any}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "{*any}"
+              ]
+            }
+          }
+        },
         {
           "name": "GET /api/boom",
           "request": {
