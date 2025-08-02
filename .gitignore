@@ -6,6 +6,9 @@ dist/
 build/
 database
 
+api-swagger.json
+better-auth-api-swagger.json
+
 # Environment variables
 .env
 .env.local
