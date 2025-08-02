@@ -1,14 +1,11 @@
 
-import { todoRepository } from "../db/repositories/index.ts";
-import type { InsertTodo, UpdateTodo } from "../db/schema/todo.schema.ts";
-import type { AuthenticatedRequest } from "../middleware/auth.ts";
-import pkg from 'express';
-const { Request, Response } = pkg;
+import { todoRepository } from "../db/repositories/index.js";
+
 export const TodoController = {
   /**
    * Get all todos for the authenticated user
    */
-  async getAllTodos(req: AuthenticatedRequest, res: Response) {
+  async getAllTodos(req, res) {
     try {
       const userId = req.user?.id;
       if (!userId) {
@@ -26,7 +23,7 @@ export const TodoController = {
   /**
    * Get a todo by ID
    */
-  async getTodoById(req: AuthenticatedRequest, res: Response) {
+  async getTodoById(req, res) {
     try {
       const { id } = req.params;
       const userId = req.user?.id;
@@ -55,7 +52,7 @@ export const TodoController = {
   /**
    * Create a new todo
    */
-  async createTodo(req: AuthenticatedRequest, res: Response) {
+  async createTodo(req, res) {
     try {
       const userId = req.user?.id;
       if (!userId) {
@@ -65,7 +62,7 @@ export const TodoController = {
       // Joi has already validated title and description
       const { title, description } = req.body;
       
-      const todoData: InsertTodo = {
+      const todoData = {
         title,
         description,
         userId,
@@ -82,7 +79,7 @@ export const TodoController = {
   /**
    * Update a todo
    */
-  async updateTodo(req: AuthenticatedRequest, res: Response) {
+  async updateTodo(req, res) {
     try {
       const { id } = req.params;
       const userId = req.user?.id;
@@ -102,7 +99,7 @@ export const TodoController = {
       }
 
       const { title, description, completed } = req.body;
-      const updateData: UpdateTodo = {};
+      const updateData = {};
 
       if (title !== undefined) updateData.title = title;
       if (description !== undefined) updateData.description = description;
@@ -119,7 +116,7 @@ export const TodoController = {
   /**
    * Delete a todo
    */
-  async deleteTodo(req: AuthenticatedRequest, res: Response) {
+  async deleteTodo(req, res) {
     try {
       const { id } = req.params;
       const userId = req.user?.id;
@@ -149,7 +146,7 @@ export const TodoController = {
   /**
    * Toggle todo completion status
    */
-  async toggleTodoComplete(req: AuthenticatedRequest, res: Response) {
+  async toggleTodoComplete(req, res) {
     try {
       const { id } = req.params;
       const userId = req.user?.id;

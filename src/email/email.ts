@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import {serverConfig} from "../config/index.ts";
+import {serverConfig} from "../config/index.js";
 // Pull in Environments variables
 const EMAIL = {
   authUser: serverConfig.emailAuthUsreName,

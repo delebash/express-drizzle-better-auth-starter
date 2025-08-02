@@ -1,36 +1,9 @@
 // src/middleware/cognitoAuth.ts
-import { auth } from "../utils/auth.ts";
+import { auth } from "../utils/auth.js";
 import { fromNodeHeaders } from "better-auth/node";
-import pkg from 'express';
-const { NextFunction,Request, Response } = pkg;
-
-// Define Cognito User type with all the properties from the token
-export interface AuthUser {
-  id: string;
-  name: string;
-  email: string;
-  emailVerified: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  image?: string;
-  role?: string;
-  banned?: boolean;
-  bannedReason?: string;
-  banExpires?: Date;
-  isAnonymous?: boolean;
-}
-
-// Define interface to extend Express Request
-export interface AuthenticatedRequest extends Request {
-  user?: AuthUser;
-  session?: {
-    id: string;
-    token: string;
-  };
-}
 
 // Middleware to verify JWT tokens
-export const verifyToken = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+export const verifyToken = async (req, res, next) => {
   try {
     const session = await auth.api.getSession({
       headers: fromNodeHeaders(req.headers),
@@ -40,7 +13,7 @@ export const verifyToken = async (req: AuthenticatedRequest, res: Response, next
       return res.status(401).json({ message: "No Session provided" });
     }
 
-    req.user = session.user as unknown as AuthUser;
+    req.user = session.user
     next();
   } catch (error) {
     console.error("Error verifying token:", error);
@@ -48,8 +21,8 @@ export const verifyToken = async (req: AuthenticatedRequest, res: Response, next
   }
 };
 
-export const requireRole = (requiredRole: string) => {
-  return async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+export const requireRole = (requiredRole) => {
+  return async (req, res, next) => {
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" });
     }
@@ -63,8 +36,8 @@ export const requireRole = (requiredRole: string) => {
   };
 };
 
-export const requireAnyRole = (requiredRoles: string[]) => {
-  return async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+export const requireAnyRole = (requiredRoles) => {
+  return async (req, res, next) => {
     if (!req.user) {
       return res.status(401).json({ message: "Unauthorized" });
     }

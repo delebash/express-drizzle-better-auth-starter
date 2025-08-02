@@ -29,9 +29,9 @@ export const authLimiter = rateLimit({
  * Creates a rate limiter with custom configuration
  */
 export const createRateLimiter = (
-  windowMs: number = 15 * 60 * 1000,
-  max: number = 100,
-  message: string = "Too many requests from this IP, please try again"
+  windowMs = 15 * 60 * 1000,
+  max= 100,
+  message = "Too many requests from this IP, please try again"
 ) => {
   return rateLimit({
     windowMs,

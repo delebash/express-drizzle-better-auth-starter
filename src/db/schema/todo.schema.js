@@ -1,6 +1,6 @@
 import { sqliteTable as table } from "drizzle-orm/sqlite-core";
 import * as t from "drizzle-orm/sqlite-core";
-import {timestamps} from "../../utils/columns.ts";
+import {timestamps} from "../../utils/columns.js";
 
 export const todos = table("todos", {
     id: t.integer('id').primaryKey({ autoIncrement: true }),
@@ -13,6 +13,6 @@ export const todos = table("todos", {
 
 });
 
-export type Todo = typeof todos.$inferSelect;
-export type InsertTodo = typeof todos.$inferInsert;
-export type UpdateTodo = Partial<InsertTodo>;
+// export type Todo = typeof todos.$inferSelect;
+// export type InsertTodo = typeof todos.$inferInsert;
+// export type UpdateTodo = Partial<InsertTodo>;

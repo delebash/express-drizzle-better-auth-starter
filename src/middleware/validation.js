@@ -1,9 +1,7 @@
 import Joi from "joi";
-import pkg from 'express';
-const { Request, Response, NextFunction } = pkg;
 
-export const validate = (schema: Joi.ObjectSchema) => {
-  return (req: Request, res: Response, next: NextFunction) => {
+export const validate = (schema) => {
+  return (req, res, next) => {
     const { error } = schema.validate(req.body, {
       abortEarly: false,
       stripUnknown: true, // Remove unknown fields (sanitization)

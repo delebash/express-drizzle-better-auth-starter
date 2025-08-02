@@ -36,7 +36,7 @@ const configSchema = Joi.object({
 });
 
 // Map environment variables to config object
-const mapEnvToConfig = (env: NodeJS.ProcessEnv) => ({
+const mapEnvToConfig = (env) => ({
     serverConfig: {
         env: process.env.NODE_ENV || "localhost",
         host: process.env.HOST || "development",

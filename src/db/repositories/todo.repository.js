@@ -1,12 +1,12 @@
-import { db } from "../config.ts";
-import { todos, type Todo, type InsertTodo, type UpdateTodo } from "../schema/todo.schema.ts";
+import { db } from "../config.js";
+import { todos } from "../schema/todo.schema.js";
 import { eq, desc } from "drizzle-orm";
 
 export class TodoRepository {
   /**
    * Create a new todo
    */
-  async create(todo: InsertTodo): Promise<Todo> {
+  async create(todo) {
     const [createdTodo] = await db.insert(todos).values(todo).returning();
     return createdTodo;
   }
@@ -14,14 +14,14 @@ export class TodoRepository {
   /**
    * Get all todos for a specific user
    */
-  async findAllByUserId(userId: string): Promise<Todo[]> {
+  async findAllByUserId(userId) {
     return db.select().from(todos).where(eq(todos.userId, userId)).orderBy(desc(todos.createdAt));
   }
 
   /**
    * Get a todo by id
    */
-  async findById(id: string): Promise<Todo | undefined> {
+  async findById(id) {
     const [todo] = await db.select().from(todos).where(eq(todos.id, id));
     return todo;
   }
@@ -29,7 +29,7 @@ export class TodoRepository {
   /**
    * Update a todo
    */
-  async update(id: string, data: UpdateTodo): Promise<Todo | undefined> {
+  async update(id, data) {
     const [updatedTodo] = await db
       .update(todos)
       .set({ ...data, updatedAt: new Date() })
@@ -41,7 +41,7 @@ export class TodoRepository {
   /**
    * Delete a todo
    */
-  async delete(id: string): Promise<boolean> {
+  async delete(id) {
     const [deletedTodo] = await db.delete(todos).where(eq(todos.id, id)).returning();
     return !!deletedTodo;
   }
@@ -49,7 +49,7 @@ export class TodoRepository {
   /**
    * Toggle todo completion status
    */
-  async toggleComplete(id: string): Promise<Todo | undefined> {
+  async toggleComplete(id) {
     const todo = await this.findById(id);
     if (!todo) return undefined;
     

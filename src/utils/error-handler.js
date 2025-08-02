@@ -1,20 +1,8 @@
-import { logger } from './logger.ts';
-import pkg from 'express';
-const { Request, Response, NextFunction } = pkg;
-
-export interface AppError extends Error {
-  statusCode?: number;
-  code?: string;
-  errors?: any[];
-}
-
+import { logger } from './logger.js';
 // Custom error class for API errors
-export class ApiError extends Error implements AppError {
-  statusCode: number;
-  code: string;
-  errors?: any[];
+export class ApiError extends Error {
 
-  constructor(statusCode: number, message: string, code = 'ERROR', errors?: any[]) {
+  constructor(statusCode, message, code = 'ERROR', errors) {
     super(message);
     this.statusCode = statusCode;
     this.code = code;
@@ -22,29 +10,29 @@ export class ApiError extends Error implements AppError {
     Object.setPrototypeOf(this, ApiError.prototype);
   }
 
-  static badRequest(message = 'Bad Request', code = 'BAD_REQUEST', errors?: any[]): ApiError {
+  static badRequest(message = 'Bad Request', code = 'BAD_REQUEST', errors) {
     return new ApiError(400, message, code, errors);
   }
 
-  static unauthorized(message = 'Unauthorized', code = 'UNAUTHORIZED'): ApiError {
+  static unauthorized(message = 'Unauthorized', code = 'UNAUTHORIZED') {
     return new ApiError(401, message, code);
   }
 
-  static forbidden(message = 'Forbidden', code = 'FORBIDDEN'): ApiError {
+  static forbidden(message = 'Forbidden', code = 'FORBIDDEN') {
     return new ApiError(403, message, code);
   }
 
-  static notFound(message = 'Not Found', code = 'NOT_FOUND'): ApiError {
+  static notFound(message = 'Not Found', code = 'NOT_FOUND') {
     return new ApiError(404, message, code);
   }
 
-  static internal(message = 'Internal Server Error', code = 'INTERNAL_ERROR'): ApiError {
+  static internal(message = 'Internal Server Error', code = 'INTERNAL_ERROR') {
     return new ApiError(500, message, code);
   }
 }
 
 // Global error handler middleware
-export const errorHandler = (err: AppError, req: Request, res: Response, next: NextFunction): void => {
+export const errorHandler = (err, req, res, next)  => {
   const statusCode = err.statusCode || 500;
   const errorCode = err.code || 'INTERNAL_ERROR';
   const message = err.message || 'Something went wrong';
@@ -79,6 +67,6 @@ export const errorHandler = (err: AppError, req: Request, res: Response, next: N
 };
 
 // Not found middleware
-export const notFoundHandler = (req: Request, res: Response, next: NextFunction): void => {
+export const notFoundHandler = (req, res, next) => {
   next(ApiError.notFound(`Route ${req.originalUrl} not found`));
 };

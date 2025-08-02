@@ -1,12 +1,12 @@
-import {db} from "../db/config.ts";
-import * as schema from "../db/schema/schema.ts";
+import {db} from "../db/config.js";
+import * as schema from "../db/schema/schema.js";
 import {betterAuth} from "better-auth";
 import {drizzleAdapter} from "better-auth/adapters/drizzle";
 import {admin, organization, openAPI, multiSession} from "better-auth/plugins";
 // import {createAuthMiddleware} from "better-auth/api";
 import sendEmail from "../email/sendEmail.ts";
 import {writeFileSync} from 'node:fs';
-import {serverConfig} from "../config/index.ts";
+import {serverConfig} from "../config/index.js";
 
 
 // @ts-ignore

@@ -1,16 +1,16 @@
-import {serverConfig} from "./config/index.ts";
-import routes from "./routes/index.ts";
-import {initDatabase} from "./db/config.ts";
-import {standardLimiter} from "./middleware/rate-limit.ts";
-import {requestLogger} from "./middleware/request-logger.ts";
-import {errorHandler, notFoundHandler} from "./utils/error-handler.ts";
-import {logger} from "./utils/logger.ts";
+import {serverConfig} from "./config/index.js";
+import routes from "./routes/index.js";
+import {initDatabase} from "./db/config.js";
+import {standardLimiter} from "./middleware/rate-limit.js";
+import {requestLogger} from "./middleware/request-logger.js";
+import {errorHandler, notFoundHandler} from "./utils/error-handler.js";
+import {logger} from "./utils/logger.js";
 import {toNodeHandler} from "better-auth/node";
 import cors from "cors";
 import express from "express";
 import swaggerUi from 'swagger-ui-express';
 import helmet from "helmet";
-import {auth} from "./utils/auth.ts";
+import {auth} from "./utils/auth.js";
 import {readFileSync} from 'node:fs';
 
 let swaggerApiDocument,swaggerAuthApiDocument

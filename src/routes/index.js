@@ -1,6 +1,6 @@
-import { requireRole, verifyToken } from "../middleware/auth.ts";
+import { requireRole, verifyToken } from "../middleware/auth.js";
 import { Router } from "express";
-import todoRoutes from "./todo.routes.ts";
+import todoRoutes from "./todo.routes.js";
 
 const router = Router();
 

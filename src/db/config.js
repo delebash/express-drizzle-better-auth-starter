@@ -1,10 +1,10 @@
 import 'dotenv/config';
-import { database } from "../config/index.ts";
-import { logger } from "../utils/logger.ts";
+import { database } from "../config/index.js";
+import { logger } from "../utils/logger.js";
 import {drizzle} from 'drizzle-orm/libsql';
 import * as process from "node:process";
 import {createClient} from "@libsql/client";
-import * as schema from "../db/schema/schema.ts";
+import * as schema from "./schema/schema.js";
 
 // Connection
 const client = createClient({url: database.url});
@@ -12,7 +12,7 @@ const client = createClient({url: database.url});
 // Create database instance
 export const db = drizzle(client, {schema});
 
-export const initDatabase = async (): Promise<void> => {
+export const initDatabase = async ()=> {
   try {
     // Test the connection
     //   const result = await db.execute('select 1');
@@ -38,7 +38,7 @@ export const initDatabase = async (): Promise<void> => {
 };
 
 // Function to gracefully close the database connections
-export const closeDatabase = async (): Promise<void> => {
+export const closeDatabase = async ()=> {
   try {
     logger.info("Closing database connections...");
       await client.close();

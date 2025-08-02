@@ -1,8 +1,6 @@
-import { logger } from '../utils/logger.ts';
-import pkg from 'express';
-const { Request, Response, NextFunction } = pkg;
+import { logger } from '../utils/logger.js';
 // Add request ID and log request details
-export const requestLogger = (req: Request, res: Response, next: NextFunction): void => {
+export const requestLogger = (req, res, next) => {
   // Add unique request ID if not already present
   const requestId = req.get('x-request-id')
   req.headers['x-request-id'] = requestId;
