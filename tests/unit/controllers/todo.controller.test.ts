@@ -73,13 +73,13 @@ const todoRepositoryMock = {
 };
 
 // Mock the repositories module
-jest.mock('@db/repositories', () => ({
+jest.mock('@db/repositories/index.js', () => ({
   todoRepository: todoRepositoryMock
 }));
 
 // Import after mocking
 // Using relative path to avoid TypeScript errors in IDE
-import { TodoController } from '../../../src/controllers/todo.controller';
+import { TodoController } from '@controllers/todo.controller.js';
 
 describe('TodoController', () => {
   let mockRequest: Partial<AuthenticatedRequest>;

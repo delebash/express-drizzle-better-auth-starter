@@ -8,7 +8,7 @@ const mockAuthMiddleware = jest.fn((req, res, next) => {
 });
 
 // Mock the auth middleware
-jest.mock('@middleware/auth', () => ({
+jest.mock('@middleware/auth.js', () => ({
   verifyToken: mockAuthMiddleware
 }));
 
@@ -80,13 +80,13 @@ const todoRepositoryMock = {
 };
 
 // Mock the todoRepository
-jest.mock('@db/repositories', () => ({
+jest.mock('@db/repositories/index.js', () => ({
   todoRepository: todoRepositoryMock
 }));
 
 // Import after mocking
 // Using relative path to avoid TypeScript errors in IDE
-import todoRoutes from '../../../src/routes/todo.routes';
+import todoRoutes from '@routes/todo.routes.js';
 
 describe('Todo Routes', () => {
   let app: express.Application;

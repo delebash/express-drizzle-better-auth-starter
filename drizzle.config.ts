@@ -1,4 +1,4 @@
-import {database} from "./src/config/index.ts";
+import {database} from "./src/config";
 import { defineConfig } from 'drizzle-kit';
 
 export default defineConfig({

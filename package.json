@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node ./src/index.ts",
-    "dev": "node --watch ./src/index.ts",
+    "start": "ts-node src/index.js",
+    "dev": "node --watch src/index.js",
     "prod": "build && node dist/index.js",
     "lint": "eslint . --ext .ts",
     "typecheck": "tsc --noEmit",
@@ -15,8 +15,8 @@
     "db:push": "npx drizzle-kit push",
     "db:studio": "npx drizzle-kit studio",
     "seed": "ts-node -r tsconfig-paths/register src/db/seed.ts",
-    "auth:schema": "npx @better-auth/cli@latest generate --output ./src/db/schema/auth-schema.ts --config ./src/utils/auth.ts",
-    "postman": "express-to-postman -i ./src/index.ts -o ./postman.collection.json",
+    "auth:schema": "npx @better-auth/cli@latest generate --output ./src/db/schema/auth-schema.ts --config src/utils/auth.js",
+    "postman": "express-to-postman -i src/index.js -o ./postman.collection.json",
     "swagger": "node ./swagger.js"
   },
   "keywords": [],

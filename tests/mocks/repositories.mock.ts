@@ -1,4 +1,4 @@
-import { Todo, InsertTodo, UpdateTodo } from "@db/schema/todo.schema";
+import { Todo, InsertTodo, UpdateTodo } from "@db/schema/todo.schema.js";
 import { v4 as uuidv4 } from "uuid";
 
 // Mock data
