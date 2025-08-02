@@ -1,4 +1,4 @@
-import {server} from "./config/index.ts";
+import {serverConfig} from "./config/index.ts";
 import routes from "./routes/index.ts";
 import {initDatabase} from "./db/config.ts";
 import {standardLimiter} from "./middleware/rate-limit.ts";
@@ -8,39 +8,78 @@ import {logger} from "./utils/logger.ts";
 import {toNodeHandler} from "better-auth/node";
 import cors from "cors";
 import express from "express";
+import swaggerUi from 'swagger-ui-express';
 import helmet from "helmet";
 import {auth} from "./utils/auth.ts";
-import pkg from 'express';
+import {readFileSync} from 'node:fs';
 
-const {Application} = pkg;
+let swaggerApiDocument,swaggerAuthApiDocument
 
-// Config is already loaded in @/config
+
 // Express application
-const app: Application = express();
-const port = server.port;
+export const app = express();
+const port = serverConfig.port;
+const host = serverConfig.host;
+
+if (serverConfig.env === 'development') {
+    //Api Docs
+    try {
+        swaggerApiDocument = JSON.parse(readFileSync('./api-swagger.json', 'utf8'));
+        if (swaggerApiDocument) {
+            // app.use('/api-docs-one', swaggerUi.serveFiles(swaggerDocumentOne, options), swaggerUi.setup(swaggerDocumentOne));
+
+            app.use('/api-docs', swaggerUi.serveFiles(swaggerApiDocument), swaggerUi.setup(swaggerApiDocument));
+
+            // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerApiDocument));
+            console.log('api-swagger ui route loaded successfully!');
+        }
+    } catch (err) {
+        console.error(`Error reading JSON file: ${err}`);
+    }
+
+    //better-auth-api-docs
+    try {
+        swaggerAuthApiDocument = JSON.parse(readFileSync('./better-auth-api-swagger.json', 'utf8'));
+        if (swaggerAuthApiDocument) {
+            app.use('/auth-api-docs', swaggerUi.serveFiles(swaggerAuthApiDocument), swaggerUi.setup(swaggerAuthApiDocument));
+            console.log('better-auth-api-swagger ui route loaded successfully!');
+        }
+    } catch (err) {
+        console.error(`Error reading JSON file: ${err}`);
+    }
+}
+
 
 // Middleware
-app.use(helmet());
-app.use(
-    cors({
-        origin: ["http://localhost:3000"], // Replace with your frontend's origin
-        methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
-        credentials: true, // Allow credentials (cookies, authorization headers, etc.)
-    })
-);
+// app.use(helmet());
+// app.use(
+//     cors({
+//         origin: ["http://localhost:3000"], // Replace with your frontend's origin
+//         methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
+//         credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+//     })
+// );
 
 // Register better-auth route BEFORE body parsers and helmet
 app.all('/api/auth/{*any}', toNodeHandler(auth));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(requestLogger);
+
+// app.use(requestLogger);
 
 // Apply rate limiting to all requests
 app.use(standardLimiter);
 
 // API routes
 app.use("/api/v1", routes);
+app.get("/api/boom", function (req, res, next) {
+    try {
+        throw new Error("Oops! matters are chaotic💥", 400);
+    } catch (error) {
+        next(error);
+    }
+});
 
 // Health check for load balancer
 app.get("/health", (req, res) => {
@@ -60,8 +99,8 @@ const startServer = async () => {
         await initDatabase();
 
         // Start listening for requests
-        app.listen(port, () => {
-            logger.info(`Server running on port ${port}`);
+        app.listen(port,host,() => {
+            logger.info(`Server running on http://${host}:${port}`);
         });
     } catch (error) {
         logger.error("Failed to start server:", error);

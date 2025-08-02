@@ -1,11 +1,11 @@
 import nodemailer from "nodemailer";
-import 'dotenv/config';
+import {serverConfig} from "../config/index.ts";
 // Pull in Environments variables
 const EMAIL = {
-  authUser: process.env.AUTH_EMAIL_USERNAME,
-  authPass: process.env.AUTH_EMAIL_PASSWORD,
-  smtpServer: process.env.EMAIL_SMTP_SERVER,
-  smtpPort: process.env.EMAIL_SMTP_PORT,
+  authUser: serverConfig.emailAuthUsreName,
+  authPass: serverConfig.emailAuthPassword,
+  smtpServer: serverConfig.emailSmptServer,
+  smtpPort: serverConfig.emailSmtpPort,
 };
 
 export async function main(mailOptions) {

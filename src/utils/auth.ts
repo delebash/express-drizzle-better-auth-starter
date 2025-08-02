@@ -2,9 +2,11 @@ import {db} from "../db/config.ts";
 import * as schema from "../db/schema/schema.ts";
 import {betterAuth} from "better-auth";
 import {drizzleAdapter} from "better-auth/adapters/drizzle";
-import {admin, organization} from "better-auth/plugins";
+import {admin, organization, openAPI, multiSession} from "better-auth/plugins";
 // import {createAuthMiddleware} from "better-auth/api";
 import sendEmail from "../email/sendEmail.ts";
+import {writeFileSync} from 'node:fs';
+import {serverConfig} from "../config/index.ts";
 
 
 // @ts-ignore
@@ -14,7 +16,7 @@ export const auth = betterAuth({
         schema: schema,
         usePlural: true,
     }),
-    plugins: [admin(), organization()],
+    plugins: [admin(), organization(), openAPI({disableDefaultReference:true}), multiSession()],
     session: {
         expiresIn: 60 * 60 * 24 * 7, // 7 days
         updateAge: 60 * 60 * 24, // 1 day (every 1 day the session expiration is updated)
@@ -79,6 +81,14 @@ export const auth = betterAuth({
             secure: true,
             sameSite: "none",
         },
+    },
+    onAPIError: {
+        throw: true,
+        onError: (error, ctx) => {
+            // Custom error handling
+            console.error("Auth error:", error);
+        },
+        errorURL: "/auth/error"
     },
     // afterDelete: async (user, request) => {
     //     // Perform any cleanup or additional actions here
@@ -148,14 +158,6 @@ export const auth = betterAuth({
     //         // Verification hooks
     //     }
     // },
-    onAPIError: {
-        throw: true,
-        onError: (error, ctx) => {
-            // Custom error handling
-            console.error("Auth error:", error);
-        },
-        errorURL: "/auth/error"
-    },
     // hooks: {
     //     before: createAuthMiddleware(async (ctx) => {
     //         // Execute before processing the request
@@ -167,3 +169,19 @@ export const auth = betterAuth({
     //     })
     // },
 });
+
+//Generate better-auth schema OpenApi file
+const openAPISchema = await auth.api.generateOpenAPISchema()
+const jsonString = JSON.stringify(openAPISchema);
+const filePath = './better-auth-api-swagger.json';
+
+// Write the JSON string to the file
+if (serverConfig.env === 'development') {
+    try {
+        writeFileSync(filePath, jsonString)
+        console.log('better-auth-api-swagger.json api written to file successfully!');
+    } catch (err) {
+        console.error(`Error writing better-auth swagger file: ${err}`);
+    }
+}
+
