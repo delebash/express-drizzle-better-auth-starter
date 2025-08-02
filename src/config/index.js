@@ -25,7 +25,7 @@ export const serverConfig = {
     },
     betterAuth: {
         secret: process.env.BETTER_AUTH_SECRET || 'fallback-secret',
-        url: process.env.BETTER_AUTH_URL || process.env.HOST + ":" + process.env.PORT,
+        url: process.env.BETTER_AUTH_URL || `http://${process.env.HOST}:${process.env.PORT}`,
     },
 }
 

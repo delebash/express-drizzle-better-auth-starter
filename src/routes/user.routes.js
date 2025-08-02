@@ -1,15 +1,15 @@
 import { Router } from 'express';
-import { UserController } from '../controllers/user.controller';
+import { UserController } from '../controllers/user.controller.js';
 import { verifyToken } from '../middleware/auth.js';
 
 const router = Router();
 const userController = new UserController();
 
-// Apply authentication middleware to all todo routes
+// Apply authentication middleware to all routes
 router.use(verifyToken);
 
-
-router.get('/profile', verifyToken, userController.getProfile);
-router.put('/profile', verifyToken, userController.updateProfile);
+//
+// router.get('/profile', verifyToken, userController.getProfile);
+// router.put('/profile', verifyToken, userController.updateProfile);
 
 export default router;

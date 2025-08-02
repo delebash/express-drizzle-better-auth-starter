@@ -6,7 +6,7 @@ import {createClient} from "@libsql/client";
 import * as schema from "./schema/schema.js";
 
 // Connection
-const client = createClient({url: serverConfig.databaseUrl});
+const client = createClient({url: serverConfig.database.url});
 // Create database instance
 export const db = drizzle(client, {schema});
 

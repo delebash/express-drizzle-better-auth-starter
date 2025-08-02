@@ -1,12 +1,12 @@
-import {db} from "@db/dbSetup.js";
+import {db} from "../db/dbSetup.js";
 import * as schema from "../db/schema/schema.js";
-import {betterAuth} from "better-auth";
+import {betterAuth, logger} from "better-auth";
 import {drizzleAdapter} from "better-auth/adapters/drizzle";
 import {admin, organization, openAPI, multiSession} from "better-auth/plugins";
 // import {createAuthMiddleware} from "better-auth/api";
 import sendEmail from "../email/sendEmail.ts";
 import {writeFileSync} from 'node:fs';
-import {serverConfig,jwt} from "../config/index.js";
+import {serverConfig} from "../config/index.js";
 
 
 // @ts-ignore
@@ -57,7 +57,7 @@ export const auth = betterAuth({
         resetPasswordTokenExpiresIn: 3600, // 1 hour
         onPasswordReset: async ({user}, request) => {
             // your logic here
-            console.log(`Password for user ${user.email} has been reset.`);
+            logger.info(`Password for user ${user.email} has been reset.`);
         },
     },
     user: {
@@ -180,9 +180,9 @@ const filePath = './better-auth-api-swagger.json';
 if (serverConfig.env === 'development') {
     try {
         writeFileSync(filePath, jsonString)
-        console.log('better-auth-api-swagger.json api written to file successfully!');
+        logger.info('better-auth-api-swagger.json api written to file successfully!');
     } catch (err) {
-        console.error(`Error writing better-auth swagger file: ${err}`);
+        logger.error(`Error writing better-auth swagger file: ${err}`);
     }
 }
 

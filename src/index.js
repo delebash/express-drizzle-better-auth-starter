@@ -1,6 +1,5 @@
 import {serverConfig} from "./config/index.js";
 import 'dotenv/config';
-import * as process from "node:process";
 import routes from "./routes/index.js";
 import {initDatabase} from "./db/dbSetup.js";
 import {standardLimiter} from "./middleware/rate-limit.js";
@@ -21,49 +20,6 @@ const authHandler = toNodeHandler(auth);
 
 // Express application
 export const app = express();
-
-//Swagger
-if (process.env.NODE_ENV === 'development') {
-    //Api Docs
-    try {
-        swaggerApiDocument = JSON.parse(readFileSync('./api-swagger.json', 'utf8'));
-        if (swaggerApiDocument) {
-            // app.use('/api-docs-one', swaggerUi.serveFiles(swaggerDocumentOne, options), swaggerUi.setup(swaggerDocumentOne));
-
-            app.use('/api-docs', swaggerUi.serveFiles(swaggerApiDocument), swaggerUi.setup(swaggerApiDocument));
-
-            // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerApiDocument));
-             logger.info('api-swagger ui route loaded successfully!');
-        }
-    } catch (err) {
-        console.error(`Error reading JSON file: ${err}`);
-    }
-
-    //better-auth-api-docs
-    try {
-        swaggerAuthApiDocument = JSON.parse(readFileSync('./better-auth-api-swagger.json', 'utf8'));
-        if (swaggerAuthApiDocument) {
-            app.use('/auth-api-docs', swaggerUi.serveFiles(swaggerAuthApiDocument), swaggerUi.setup(swaggerAuthApiDocument));
-             logger.info('better-auth-api-swagger ui route loaded successfully!');
-        }
-    } catch (err) {
-        console.error(`Error reading JSON file: ${err}`);
-    }
-
-    //Test better-auth
-     logger.info('🔧 Testing BetterAuth configuration...');
-    try {
-        await auth.api.getSession({
-            headers: new Headers({
-                'Content-Type': 'application/json',
-            }),
-        });
-         logger.info('✅ BetterAuth configuration is valid');
-    } catch (error) {
-        console.error('❌ BetterAuth configuration error:', error);
-    }
-}
-
 
 // Middleware
 // app.use(helmet());
@@ -87,7 +43,6 @@ app.set('trust proxy', 1);
 // Apply rate limiting to all requests
 app.use(standardLimiter);
 
-
 // BetterAuth handler with additional debugging
 app.all('/api/auth/*splat', (req, res) => {
      logger.info(`🔐 BetterAuth handling: ${req.method} ${req.url}`);
@@ -104,7 +59,50 @@ app.all('/api/auth/*splat', (req, res) => {
 app.use(express.json());
 
 // API routes
-app.use("/api/v1", routes);
+app.use("/api", routes);
+
+// Generate Swagger docs and ui
+if (process.env.NODE_ENV === 'development') {
+    //Api Docs
+    try {
+        swaggerApiDocument = JSON.parse(readFileSync('./api-swagger.json', 'utf8'));
+        if (swaggerApiDocument) {
+            // app.use('/api-docs-one', swaggerUi.serveFiles(swaggerDocumentOne, options), swaggerUi.setup(swaggerDocumentOne));
+
+            app.use('/api/api-docs', swaggerUi.serveFiles(swaggerApiDocument), swaggerUi.setup(swaggerApiDocument));
+
+            // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerApiDocument));
+            logger.info('api-swagger ui route loaded successfully!');
+        }
+    } catch (err) {
+        logger.error(`Error reading JSON file: ${err}`);
+    }
+
+    //better-auth-api-docs
+    try {
+        swaggerAuthApiDocument = JSON.parse(readFileSync('./better-auth-api-swagger.json', 'utf8'));
+        if (swaggerAuthApiDocument) {
+            app.use('/api/auth-api-docs', swaggerUi.serveFiles(swaggerAuthApiDocument), swaggerUi.setup(swaggerAuthApiDocument));
+            logger.info('better-auth-api-swagger ui route loaded successfully!');
+        }
+    } catch (err) {
+        logger.error(`Error reading JSON file: ${err}`);
+    }
+
+    //Test better-auth
+    logger.info('🔧 Testing BetterAuth configuration...');
+    try {
+        await auth.api.getSession({
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            }),
+        });
+        logger.info('✅ BetterAuth configuration is valid');
+    } catch (error) {
+        console.error('❌ BetterAuth configuration error:', error);
+    }
+}
+
 
 // 404 handler
 app.use(notFoundHandler);
@@ -120,8 +118,8 @@ const startServer = async () => {
         // Start listening for requests
         app.listen(serverConfig.port, serverConfig.host, () => {
          logger.info(`🚀 Server running on http://${serverConfig.host}:${serverConfig.port}`);
-         logger.info(`📚 API Documentation: http://localhost:${serverConfig.port}/api/health`);
-         logger.info(`🔐 Auth endpoints: http://localhost:${serverConfig.port}/api/auth/*`);
+         logger.info(`📚 API Documentation: http://${serverConfig.host}:${serverConfig.port}/api/auth-api-docs`);
+         logger.info(`🔐 Auth endpoints: http://${serverConfig.host}:${serverConfig.port}/api/api-docs`);
          logger.info(`🔧 Environment: ${serverConfig.env}`);
         });
     } catch (error) {
