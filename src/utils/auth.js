@@ -1,4 +1,4 @@
-import {db} from "../db/config.js";
+import {db} from "@db/dbSetup.js";
 import * as schema from "../db/schema/schema.js";
 import {betterAuth} from "better-auth";
 import {drizzleAdapter} from "better-auth/adapters/drizzle";
@@ -6,7 +6,7 @@ import {admin, organization, openAPI, multiSession} from "better-auth/plugins";
 // import {createAuthMiddleware} from "better-auth/api";
 import sendEmail from "../email/sendEmail.ts";
 import {writeFileSync} from 'node:fs';
-import {serverConfig} from "../config/index.js";
+import {serverConfig,jwt} from "../config/index.js";
 
 
 // @ts-ignore
@@ -26,6 +26,19 @@ export const auth = betterAuth({
             enabled: true,
             maxAge: 5 * 60 // Cache duration in seconds
         }
+    },
+    secret: serverConfig.betterAuth.secret,
+    baseURL: serverConfig.betterAuth.url,
+    trustedOrigins: ["http://localhost:3000"],
+    rateLimit: {
+        window: 10, // time in seconds,
+        max: 100,
+    },
+    advanced: {
+        defaultCookieAttributes: {
+            secure: true,
+            sameSite: "none",
+        },
     },
     emailAndPassword: {
         enabled: true,
@@ -69,18 +82,6 @@ export const auth = betterAuth({
                 })
             }
         }
-    },
-
-    trustedOrigins: ["http://localhost:3000"],
-    rateLimit: {
-        window: 10, // time in seconds,
-        max: 100,
-    },
-    advanced: {
-        defaultCookieAttributes: {
-            secure: true,
-            sameSite: "none",
-        },
     },
     onAPIError: {
         throw: true,

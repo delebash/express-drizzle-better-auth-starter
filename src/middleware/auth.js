@@ -1,57 +1,58 @@
 // src/middleware/cognitoAuth.ts
-import { auth } from "../utils/auth.js";
-import { fromNodeHeaders } from "better-auth/node";
+import {auth} from "../utils/auth.js";
+import {fromNodeHeaders} from "better-auth/node";
 
 // Middleware to verify JWT tokens
 export const verifyToken = async (req, res, next) => {
-  try {
-    const session = await auth.api.getSession({
-      headers: fromNodeHeaders(req.headers),
-    });
+    try {
+        const session = await auth.api.getSession({
+            headers: fromNodeHeaders(req.headers),
+        });
 
-    if (!session) {
-      return res.status(401).json({ message: "No Session provided" });
+        if (!session) {
+            return res.status(401).json({message: "No Session provided"});
+        }
+
+        req.user = session.user
+        req.session = session.session;
+        next();
+    } catch (error) {
+        console.error("Error verifying token:", error);
+        res.status(401).json({message: "Unauthorized"});
     }
-
-    req.user = session.user
-    next();
-  } catch (error) {
-    console.error("Error verifying token:", error);
-    res.status(401).json({ message: "Unauthorized" });
-  }
 };
 
 export const requireRole = (requiredRole) => {
-  return async (req, res, next) => {
-    if (!req.user) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
+    return async (req, res, next) => {
+        if (!req.user) {
+            return res.status(401).json({message: "Unauthorized"});
+        }
 
-    const role = req.user.role;
-    if (!role || role !== requiredRole) {
-      return res.status(403).json({ message: `Role ${requiredRole} required` });
-    }
+        const role = req.user.role;
+        if (!role || role !== requiredRole) {
+            return res.status(403).json({message: `Role ${requiredRole} required`});
+        }
 
-    next();
-  };
+        next();
+    };
 };
 
 export const requireAnyRole = (requiredRoles) => {
-  return async (req, res, next) => {
-    if (!req.user) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
+    return async (req, res, next) => {
+        if (!req.user) {
+            return res.status(401).json({message: "Unauthorized"});
+        }
 
-    const userRole = req.user.role;
-    if (!userRole) {
-      return res.status(403).json({ message: `One of roles ${requiredRoles.join(", ")} required` });
-    }
-    const hasAccess = requiredRoles.some((role) => userRole === role);
+        const userRole = req.user.role;
+        if (!userRole) {
+            return res.status(403).json({message: `One of roles ${requiredRoles.join(", ")} required`});
+        }
+        const hasAccess = requiredRoles.some((role) => userRole === role);
 
-    if (!hasAccess) {
-      return res.status(403).json({ message: `One of roles ${requiredRoles.join(", ")} required` });
-    }
+        if (!hasAccess) {
+            return res.status(403).json({message: `One of roles ${requiredRoles.join(", ")} required`});
+        }
 
-    next();
-  };
+        next();
+    };
 };

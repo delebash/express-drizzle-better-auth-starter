@@ -70,3 +70,10 @@ export const errorHandler = (err, req, res, next)  => {
 export const notFoundHandler = (req, res, next) => {
   next(ApiError.notFound(`Route ${req.originalUrl} not found`));
 };
+
+export const createError = (message, statusCode = 500) => {
+    const error = new Error(message);
+    error.statusCode = statusCode;
+    error.isOperational = true;
+    return error;
+};

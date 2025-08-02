@@ -1,4 +1,4 @@
-import { db } from "../config.js";
+import { db } from "../dbSetup.js";
 import { todos } from "../schema/todo.schema.js";
 import { eq, desc } from "drizzle-orm";
 

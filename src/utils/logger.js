@@ -1,6 +1,7 @@
 import winston from 'winston';
-import 'dotenv/config';
-const logLevel = process.env.LOG_LEVEL || 'info';
+import {serverConfig} from "../config/index.js";
+
+const logLevel = serverConfig.logging.level
 
 export const logger = winston.createLogger({
   level: logLevel,

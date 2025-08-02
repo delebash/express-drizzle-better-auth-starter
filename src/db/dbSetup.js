@@ -1,14 +1,12 @@
 import 'dotenv/config';
-import { database } from "../config/index.js";
+import { serverConfig } from "../config/index.js";
 import { logger } from "../utils/logger.js";
 import {drizzle} from 'drizzle-orm/libsql';
-import * as process from "node:process";
 import {createClient} from "@libsql/client";
 import * as schema from "./schema/schema.js";
 
 // Connection
-const client = createClient({url: database.url});
-// console.log(database.url)
+const client = createClient({url: serverConfig.databaseUrl});
 // Create database instance
 export const db = drizzle(client, {schema});
 
