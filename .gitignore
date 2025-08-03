@@ -5,6 +5,8 @@ node_modules/
 dist/
 build/
 database
+swagger-api.json
+swagger-auth-api.json
 
 api-swagger.json
 better-auth-api-swagger.json
