@@ -16,7 +16,12 @@ export const auth = betterAuth({
         schema: schema,
         usePlural: true,
     }),
-    plugins: [admin(), organization(), openAPI({disableDefaultReference:true}), multiSession()],
+    plugins: [
+        admin({defaultRole: "user", adminRoles: ["admin"]}),
+        organization(),
+        openAPI({disableDefaultReference: true}),
+        multiSession()
+    ],
     session: {
         expiresIn: 60 * 60 * 24 * 7, // 7 days
         updateAge: 60 * 60 * 24, // 1 day (every 1 day the session expiration is updated)

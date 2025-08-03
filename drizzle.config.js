@@ -1,4 +1,4 @@
-import {database} from "./src/config/server";
+import {envConfig} from "./src/config/env.config.js";
 import { defineConfig } from 'drizzle-kit';
 
 export default defineConfig({
@@ -6,7 +6,7 @@ export default defineConfig({
     schema: "./src/db/schema/schema.ts",
     dialect: 'sqlite',
     dbCredentials: {
-        url: database.url,
+        url: envConfig.database.url,
     },
     strict: false,
     verbose: false,
