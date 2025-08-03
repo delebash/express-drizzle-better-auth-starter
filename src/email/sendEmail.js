@@ -1,7 +1,8 @@
 import {main} from "./email.js";
+import {envConfig} from "../config/env.config.js";
 
 const fixedMailOptions = {
-  from: process.env.EMAIL_FROM,
+  from: envConfig.server.nodeEnv,
 };
 
 export default function sendEmail(options = {}) {

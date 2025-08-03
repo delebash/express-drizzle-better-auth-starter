@@ -16,16 +16,21 @@ const configSchema = Joi.object({
     DATABASE_URL: Joi.string().default('file:./database/local.db'),
 
     //Email
-    EMAIL_SMTP_SERVER: Joi.string().default("your-smtp.server.com"),
-    EMAIL_SMTP_PORT: Joi.number().default(587),
-    AUTH_EMAIL_USERNAME: Joi.string().default("your-email"),
-    AUTH_EMAIL_PASSWORD: Joi.string().default("your-password"),
+    SMTP_SERVER: Joi.string().default("your-smtp.server.com"),
+    SMTP_PORT: Joi.number().default(587),
+    SMTP_USERNAME: Joi.string().default("your-email"),
+    SMTP_PASSWORD: Joi.string().default("your-password"),
     EMAIL_FROM: Joi.string().default("your-email@youremail.com"),
-    RESEND_API_KEY: Joi.string().default("your-resend-api-key"),
+    SMTP_API_KEY: Joi.string().default("your-smtp-api-key"), // Example a resend api key for dev testing resend.com
 
     //Better-Auth framework
     BETTER_AUTH_URL: Joi.string().default("http://localhost:3000"),
-    BETTER_AUTH_SECRET: Joi.string().default("fallback-secret"),
+    BETTER_AUTH_SECRET: Joi.string().required(),
+    BETTER_AUTH_BASEPATH: Joi.string().default("/api/auth"),
+    //Swagger
+    SWAGGER_BETTER_AUTH_API_JSON_PATH: Joi.string().default("./swagger-better-auth-api.json"),
+    SWAGGER_API_JSON_PATH: Joi.string().default("./swagger-api.json"),
+
 
     // Logging
     LOG_LEVEL: Joi.string()
@@ -40,14 +45,16 @@ const mapEnvToConfig = (validatedEnv) => ({
         port: parseInt(validatedEnv.PORT, 10),
         appName: validatedEnv.APP_NAME,
         host: validatedEnv.HOST,
+        swaggerApiJsonPath: validatedEnv.SWAGGER_API_JSON_PATH,
+        swaggerBetterAuthApiJsonPath: validatedEnv.SWAGGER_BETTER_AUTH_API_JSON_PATH,
     },
     email: {
-        smptServer: validatedEnv.EMAIL_SMTP_SERVER,
-        smptPort: validatedEnv.EMAIL_SMTP_PORT,
-        authUserName: validatedEnv.AUTH_EMAIL_USERNAME,
-        authPassword: validatedEnv.AUTH_EMAIL_PASSWORD,
+        smptServer: validatedEnv.SMTP_SERVER,
+        smptPort: validatedEnv.SMTP_PORT,
+        smtpUserName: validatedEnv.SMTP_USERNAME,
+        smtpPassword: validatedEnv.SMTP_PASSWORD,
         from: validatedEnv.EMAIL_FROM,
-        resendApiKey: validatedEnv.RESEND_API_KEY,
+        smtpApiKey: validatedEnv.SMTP_API_KEY,
     },
     database: {
         url: validatedEnv.DATABASE_URL,
@@ -55,6 +62,7 @@ const mapEnvToConfig = (validatedEnv) => ({
     betterAuth: {
         url: validatedEnv.BETTER_AUTH_URL,
         secret: validatedEnv.BETTER_AUTH_SECRET,
+        basePath: validatedEnv.BETTER_AUTH_BASEPATH,
     },
     logging: {
         level: validatedEnv.LOG_LEVEL,

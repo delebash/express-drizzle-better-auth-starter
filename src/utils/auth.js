@@ -29,6 +29,7 @@ export const auth = betterAuth({
     },
     secret: envConfig.betterAuth.secret,
     baseURL: envConfig.betterAuth.url,
+    basePath: envConfig.betterAuth.basePath,
     trustedOrigins: ["http://localhost:3000"],
     rateLimit: {
         window: 10, // time in seconds,
@@ -174,12 +175,11 @@ export const auth = betterAuth({
 //Generate better-auth schema OpenApi file
 const openAPISchema = await auth.api.generateOpenAPISchema()
 const jsonString = JSON.stringify(openAPISchema);
-const filePath = './better-auth-api-swagger.json';
 
 // Write the JSON string to the file
 if (envConfig.server.nodeEnv === 'development') {
     try {
-        writeFileSync(filePath, jsonString)
+        writeFileSync(envConfig.server.swaggerBetterAuthApiJsonPath, jsonString)
         logger.info('better-auth-api-swagger.json api written to file successfully!');
     } catch (err) {
         logger.error(`Error writing better-auth swagger file: ${err}`);

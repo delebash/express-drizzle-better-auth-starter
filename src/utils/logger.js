@@ -23,7 +23,7 @@ export const logger = winston.createLogger({
   ],
 });
 
-if (process.env.NODE_ENV === 'production') {
+if (envConfig.server.nodeEnv  === 'production') {
   // Add AWS CloudWatch transport in production
   // This would be implemented with a CloudWatch transport package
 }

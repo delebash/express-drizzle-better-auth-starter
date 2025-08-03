@@ -14,12 +14,12 @@ const doc = {
     produces: ['application/json'],
 }
 
-const outputFile = './api-swagger.json'
+
 const routes = ['./src/routes/index.js']
 
 // swaggerAutogen(outputFile, routes, doc) //swagger 2.0 specs  old
 
-swaggerAutogen({openapi: '3.0.0'})(outputFile, routes, doc); //open api 3 new
+swaggerAutogen({openapi: '3.0.0'})(envConfig.server.swaggerApiJsonPath, routes, doc); //open api 3 new
 
 //Gen at startup
 // swaggerAutogen()(outputFile, routes, doc).then(async () => {
