@@ -7,14 +7,14 @@ import {admin, organization, openAPI, multiSession} from "better-auth/plugins";
 import sendEmail from "../email/sendEmail.js";
 import {writeFileSync} from 'node:fs';
 import {envConfig} from "../config/env.config.js";
-
+import { APIError } from "better-auth/api"
 
 // @ts-ignore
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
         provider: "sqlite",
         schema: schema,
-        usePlural: true,
+        usePlural: true
     }),
     plugins: [
         admin({defaultRole: "user", adminRoles: ["admin"]}),
@@ -67,17 +67,42 @@ export const auth = betterAuth({
         },
     },
     user: {
+        additionalFields: {
+            role: {
+                type: "string",
+                required: false,
+                defaultValue: "user",
+                input: false, // don't allow user to set role
+            },
+            lang: {
+                type: "string",
+                required: false,
+                defaultValue: "en",
+            },
+        },
         deleteUser: {
             enabled: true,
             beforeDelete: async (user, request) => {
                 // Perform any cleanup or additional checks here
                 if (user.email.includes("admin")) {
-                    throw new Error("BAD_REQUEST", {
+                    throw new APIError("BAD_REQUEST", {
                         message: "Admin accounts can't be deleted",
                     });
                 }
             },
         },
+        // createUser: {
+        //     forceAllowId:true,
+        //     enabled: true,
+        //     // beforeCreate: async (user, request) => {
+        //     //     // Perform any cleanup or additional checks here
+        //     //     if (user.email.includes("admin")) {
+        //     //         throw new APIError("BAD_REQUEST", {
+        //     //             message: "Admin accounts can't be deleted",
+        //     //         });
+        //     //     }
+        //     // },
+        // },
         changeEmail: {
             enabled: true,
             sendChangeEmailVerification: async ({user, newEmail, url, token}, request) => {

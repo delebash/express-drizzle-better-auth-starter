@@ -14,10 +14,11 @@ export const users = sqliteTable("users", {
   updatedAt: integer("updated_at", { mode: "timestamp" })
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
-  role: text("role"),
+  role: text("role").default("user"),
   banned: integer("banned", { mode: "boolean" }),
   banReason: text("ban_reason"),
   banExpires: integer("ban_expires", { mode: "timestamp" }),
+  lang: text("lang").default("en"),
 });
 
 export const sessions = sqliteTable("sessions", {
