@@ -1,34 +1,23 @@
 import 'dotenv/config';
-import { serverConfig } from "../config/index.js";
+import { envConfig } from "../config/env.config.js";
 import { logger } from "../utils/logger.js";
 import {drizzle} from 'drizzle-orm/libsql';
 import {createClient} from "@libsql/client";
 import * as schema from "./schema/schema.js";
-
+import { sql } from 'drizzle-orm'
 // Connection
-const client = createClient({url: serverConfig.database.url});
+const client = createClient({url: envConfig.database.url});
 // Create database instance
 export const db = drizzle(client, {schema});
 
+
 export const initDatabase = async ()=> {
   try {
-    // Test the connection
-    //   const result = await db.execute('select 1');
-    // Log connection pool information
+    // Test the connection //db.execute does not work per https://github.com/drizzle-team/drizzle-orm/issues/1364
+      //use run, all, get
+     await db.run(`select 1`);
     logger.info("Database connection established successfully", {
     });
-    
-    // Setup periodic health check for the connection pool
-    if (process.env.NODE_ENV === 'production') {
-      setInterval(async () => {
-        try {
-            const result = await db.execute('select 1');
-          logger.debug('Connection pool health check passed');
-        } catch (error) {
-          logger.error('Connection pool health check failed:', error);
-        }
-      }, 60000); // Check every minute
-    }
   } catch (error) {
     logger.error("Unable to connect to the database:", error);
     throw error;

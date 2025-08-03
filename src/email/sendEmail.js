@@ -1,4 +1,4 @@
-import {main} from "./email.ts";
+import {main} from "./email.js";
 
 const fixedMailOptions = {
   from: process.env.EMAIL_FROM,

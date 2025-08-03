@@ -4,9 +4,9 @@ import {betterAuth, logger} from "better-auth";
 import {drizzleAdapter} from "better-auth/adapters/drizzle";
 import {admin, organization, openAPI, multiSession} from "better-auth/plugins";
 // import {createAuthMiddleware} from "better-auth/api";
-import sendEmail from "../email/sendEmail.ts";
+import sendEmail from "../email/sendEmail.js";
 import {writeFileSync} from 'node:fs';
-import {serverConfig} from "../config/index.js";
+import {envConfig} from "../config/env.config.js";
 
 
 // @ts-ignore
@@ -27,8 +27,8 @@ export const auth = betterAuth({
             maxAge: 5 * 60 // Cache duration in seconds
         }
     },
-    secret: serverConfig.betterAuth.secret,
-    baseURL: serverConfig.betterAuth.url,
+    secret: envConfig.betterAuth.secret,
+    baseURL: envConfig.betterAuth.url,
     trustedOrigins: ["http://localhost:3000"],
     rateLimit: {
         window: 10, // time in seconds,
@@ -177,7 +177,7 @@ const jsonString = JSON.stringify(openAPISchema);
 const filePath = './better-auth-api-swagger.json';
 
 // Write the JSON string to the file
-if (serverConfig.env === 'development') {
+if (envConfig.server.nodeEnv === 'development') {
     try {
         writeFileSync(filePath, jsonString)
         logger.info('better-auth-api-swagger.json api written to file successfully!');

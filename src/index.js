@@ -1,4 +1,4 @@
-import {serverConfig} from "./config/index.js";
+import {envConfig} from "./config/env.config.js";
 import 'dotenv/config';
 import routes from "./routes/index.js";
 import {initDatabase} from "./db/dbSetup.js";
@@ -8,7 +8,7 @@ import {errorHandler, notFoundHandler} from "./utils/error-handler.js";
 import {logger} from "./utils/logger.js";
 import {toNodeHandler} from "better-auth/node";
 import cors from "cors";
-import corsOptions from "./config/cors.js";
+import corsOptions from "./config/cors.config.js";
 import express from "express";
 import swaggerUi from 'swagger-ui-express';
 import helmet from "helmet";
@@ -16,8 +16,12 @@ import {auth} from "./utils/auth.js";
 import {readFileSync} from 'node:fs';
 
 
+
+// checkEnv(env);
+
 let swaggerApiDocument, swaggerAuthApiDocument
 const authHandler = toNodeHandler(auth);
+
 
 /*
    INITIALIZE EXPRESS APPLICATION 🏁
@@ -111,11 +115,11 @@ const startServer = async () => {
         // Initialize database connection
         await initDatabase();
         // Start listening for requests
-        app.listen(serverConfig.port, serverConfig.host, () => {
-            logger.info(`🚀 Server running on http://${serverConfig.host}:${serverConfig.port}`);
-            logger.info(`📚 API Documentation: http://${serverConfig.host}:${serverConfig.port}/api/auth-api-docs`);
-            logger.info(`🔐 Auth endpoints: http://${serverConfig.host}:${serverConfig.port}/api/api-docs`);
-            logger.info(`🔧 Environment: ${serverConfig.env}`);
+        app.listen(envConfig.server.port, envConfig.server.host, () => {
+            logger.info(`🚀 Server running on http://${envConfig.server.host}:${envConfig.server.port}`);
+            logger.info(`📚 API Documentation: http://${envConfig.server.host}:${envConfig.server.port}/api/auth-api-docs`);
+            logger.info(`🔐 Auth endpoints: http://${envConfig.server.host}:${envConfig.server.port}/api/api-docs`);
+            logger.info(`🔧 Environment: ${envConfig.server.env}`);
         });
     } catch (error) {
         logger.error("Failed to start server:", error);

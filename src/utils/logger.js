@@ -1,7 +1,7 @@
 import winston from 'winston';
-import {serverConfig} from "../config/index.js";
+import {envConfig} from "../config/env.config.js";
 
-const logLevel = serverConfig.logging.level
+const logLevel = envConfig.logging.level
 
 export const logger = winston.createLogger({
   level: logLevel,

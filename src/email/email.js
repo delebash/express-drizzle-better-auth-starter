@@ -1,11 +1,11 @@
 import nodemailer from "nodemailer";
-import {serverConfig} from "../config/index.js";
+import {envConfig} from "../config/env.config.js";
 // Pull in Environments variables
 const EMAIL = {
-  authUser: serverConfig.emailAuthUsreName,
-  authPass: serverConfig.emailAuthPassword,
-  smtpServer: serverConfig.emailSmptServer,
-  smtpPort: serverConfig.emailSmtpPort,
+  authUser: envConfig.emailAuthUsreName,
+  authPass: envConfig.emailAuthPassword,
+  smtpServer: envConfig.emailSmptServer,
+  smtpPort: envConfig.emailSmtpPort,
 };
 
 export async function main(mailOptions) {

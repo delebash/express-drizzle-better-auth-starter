@@ -48,13 +48,4 @@ export class StubRepository {
         return !!deletedStub;
     }
 
-    /**
-     * Toggle stub completion status
-     */
-    async toggleComplete(id) {
-        const stub = await this.findById(id);
-        if (!stub) return undefined;
-
-        return this.update(id, { completed: !stub.completed });
-    }
 }
